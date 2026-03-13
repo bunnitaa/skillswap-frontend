@@ -1,0 +1,35 @@
+<div style="max-width: 500px; margin: 20px auto; font-family: sans-serif;">
+  <h2>Submit a Proposal</h2>
+  
+  <div *ngIf="errorMessage" style="color: red; padding: 10px; background: #ffe6e6; margin-bottom: 15px;">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" style="color: green; padding: 10px; background: #e6ffe6; margin-bottom: 15px;">
+    {{ successMessage }}
+  </div>
+
+  <form [formGroup]="proposalForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column; gap: 15px;">
+    
+    <div>
+      <label for="price" style="display: block; font-weight: bold;">Proposed Price ($)</label>
+      <input type="number" id="price" formControlName="price" placeholder="Enter your price" style="width: 100%; padding: 8px;">
+      
+      <div *ngIf="proposalForm.get('price')?.touched && proposalForm.get('price')?.invalid" style="color: red; font-size: 12px; margin-top: 5px;">
+        Valid price is required.
+      </div>
+    </div>
+
+    <div>
+      <label for="cover_letter" style="display: block; font-weight: bold;">Cover Letter</label>
+      <textarea id="cover_letter" formControlName="cover_letter" rows="5" placeholder="Why are you a good fit?" style="width: 100%; padding: 8px;"></textarea>
+      
+      <div *ngIf="proposalForm.get('cover_letter')?.touched && proposalForm.get('cover_letter')?.invalid" style="color: red; font-size: 12px; margin-top: 5px;">
+        Cover letter is required.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="proposalForm.invalid" style="padding: 10px; background: #007bff; color: white; border: none; cursor: pointer;">
+      Submit Proposal
+    </button>
+  </form>
+</div>
