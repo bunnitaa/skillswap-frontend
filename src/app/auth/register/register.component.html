@@ -1,0 +1,51 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" formControlName="name" placeholder="Enter your full name" />
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" formControlName="username" placeholder="Pick a unique username" />
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Enter your email" />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Enter password" />
+      </div>
+
+      <div class="form-group">
+        <label>Bio</label>
+        <textarea formControlName="bio" placeholder="Tell us about yourself"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Skills (comma separated)</label>
+        <input type="text" formControlName="skills" placeholder="e.g. Angular, Java, CSS" />
+      </div>
+
+      <p class="error" *ngIf="errorMessage" style="color: red; font-weight: bold;">
+        {{ errorMessage }}
+      </p>
+
+      <p *ngIf="suggestedUsername" style="color: blue; font-weight: bold;">
+        That username is taken. How about: <strong style="cursor: pointer; text-decoration: underline;">{{ suggestedUsername }}</strong>?
+      </p>
+
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </form>
+
+    <p class="login-link" style="margin-top: 15px;">
+      Already have an account? <a routerLink="/login">Login</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+/* Container for the entire navigation bar */
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 20px;
+background:#2a72d4;
+color:white;
+}
+
+.navbar button{
+background:white;
+border:none;
+padding:6px 12px;
+border-radius:4px;
+cursor:pointer;
+}
+
+
+.links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+
+.links a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+
+button {
+  background-color: #ffffff;
+  color: #1976d2;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+  .navbar h1 {
+    font-size: 1.2rem;
+  }
+}

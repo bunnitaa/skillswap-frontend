@@ -1,0 +1,8 @@
+<div class="login-container" style="margin-top: 100px; position: relative; z-index: 10;">
+  <h2>Test Login</h2>
+  <form [formGroup]="loginForm">
+    <input type="text" formControlName="email" placeholder="Type here...">
+    <input type="password" formControlName="password">
+    <button type="button" (click)="onSubmit()">Login</button>
+  </form>
+</div>

@@ -1,0 +1,38 @@
+{
+  "/auth": {
+    "target": "https://stingray-app-wxhhn.ondigitalocean.app",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/users": {
+    "target": "https://stingray-app-wxhhn.ondigitalocean.app",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/jobs": {
+    "target": "https://stingray-app-wxhhn.ondigitalocean.app",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/proposals": {
+    "target": "https://stingray-app-wxhhn.ondigitalocean.app",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/reviews": {
+    "target": "https://stingray-app-wxhhn.ondigitalocean.app",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/platform": {
+    "target": "https://stingray-app-wxhhn.ondigitalocean.app",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

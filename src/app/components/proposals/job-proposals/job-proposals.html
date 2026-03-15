@@ -1,0 +1,19 @@
+<div style="max-width: 800px; margin: 20px auto; font-family: sans-serif;">
+  <h2>Review Proposals for Job #{{ jobId }}</h2>
+
+  <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+
+  <div *ngIf="proposals.length === 0 && !errorMessage">
+    <p>No proposals have been submitted for this job yet.</p>
+  </div>
+
+  <div *ngFor="let p of proposals" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+    <h3>Proposed Price: ${{ p.price }}</h3>
+    <p><strong>Cover Letter:</strong> {{ p.cover_letter }}</p>
+    <p><strong>Status:</strong> <span style="text-transform: uppercase;">{{ p.status }}</span></p>
+    
+    <button *ngIf="p.status !== 'accepted'" (click)="acceptProposal(p.id)" style="background: #28a745; color: white; padding: 8px 12px; border: none; cursor: pointer;">
+      Accept Proposal
+    </button>
+  </div>
+</div>

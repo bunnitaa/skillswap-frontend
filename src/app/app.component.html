@@ -1,0 +1,19 @@
+<h1>My Application</h1>
+
+<nav>
+  <ng-container *ngIf="!authService.isLoggedIn()">
+    <a routerLink="/login">Login</a> |
+    <a routerLink="/register">Register</a> |
+  </ng-container>
+
+  <ng-container *ngIf="authService.isLoggedIn()">
+    <a routerLink="/dashboard">Dashboard</a> |
+    <a routerLink="/my-bids">My Bids</a> |
+    <a routerLink="/submit-proposal/1">Test Proposal</a> |
+    <a routerLink="/job-proposals/1">View Proposals</a> |
+    <a (click)="onLogout()" href="javascript:void(0)" style="color: red; font-weight: bold;">Logout</a>
+  </ng-container>
+</nav>
+
+<hr>
+<router-outlet></router-outlet>
