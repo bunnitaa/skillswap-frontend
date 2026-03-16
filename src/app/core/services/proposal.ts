@@ -10,22 +10,22 @@ export class ProposalService {
   private baseUrl = '';
 
   submitProposal(jobId: number, data: { price: number; cover_letter: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/jobs/${jobId}/proposals`, data);
+    return this.http.post(`/jobs/${jobId}/proposals`, data);
   }
 
   getJobProposals(jobId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/jobs/${jobId}/proposals`);
+    return this.http.get(`/jobs/${jobId}/proposals`);
   }
 
   acceptProposal(proposalId: number): Observable<any> {
-    return this.http.patch(`${this.baseUrl}/proposals/${proposalId}/accept`, {});
+    return this.http.patch(`/proposals/${proposalId}/accept`, {});
   }
 
   getMyBids(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/proposals/my-bids`);
+    return this.http.get(`/proposals/my-bids`);
   }
 
   deleteProposal(proposalId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/proposals/${proposalId}`);
+    return this.http.delete(`/proposals/${proposalId}`);
   }
 }

@@ -1,0 +1,87 @@
+<div class="job-details-container">
+  <button class="back-btn" (click)="goBack()">&larr; Back to Jobs</button>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading job details...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && job" class="job-content">
+    <div class="header-section">
+      <h2>{{ job.title }}</h2>
+      <span class="status-badge" [ngClass]="job.status">{{ job.status | titlecase }}</span>
+    </div>
+
+    <div class="details-card">
+      <div class="detail-row">
+        <strong>Category:</strong> <span>{{ job.category }}</span>
+      </div>
+      <div class="detail-row">
+        <strong>Budget:</strong> <span>${{ job.budget }}</span>
+      </div>
+      <div class="detail-row">
+        <strong>Owner:</strong> <span>{{ job.owner?.name || job.owner?.username || job.owner?._id || job.owner }}</span>
+      </div>
+      <div class="detail-row" *ngIf="job.freelancer">
+        <strong>Freelancer:</strong> <span>{{ job.freelancer?.name || job.freelancer?.username || job.freelancer?._id || job.freelancer }}</span>
+      </div>
+    </div>
+
+    <div class="description-section">
+      <h3>Description</h3>
+      <p>{{ job.description }}</p>
+    </div>
+
+    <div class="actions-section">
+      <ng-container *ngIf="isOwner()">
+        <a *ngIf="job.status === 'open'" [routerLink]="['/jobs', job.id || job._id, 'edit']" class="btn edit-btn">Edit Job</a>
+        <button *ngIf="job.status === 'in_progress'" (click)="completeJob()" class="btn complete-btn">Mark as Completed</button>
+      </ng-container>
+      
+      <a *ngIf="job.status === 'open' && !isOwner()" 
+         [routerLink]="['/submit-proposal', job.id || job._id]" 
+         class="btn proposal-btn">Submit Proposal</a>
+    </div>
+
+    <!-- Owner Proposals Section -->
+    <div *ngIf="isOwner()" class="proposals-section" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+      <h3>Proposals ({{ proposals.length }})</h3>
+      
+      <div *ngIf="proposals.length === 0" style="padding: 20px; background: #f9f9f9; border-radius: 4px; text-align: center; color: #666;">
+        No proposals received yet.
+      </div>
+
+      <div *ngFor="let bid of proposals" class="proposal-card" 
+           style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+          <div>
+            <strong style="display: block; font-size: 1.1em; color: #333;">
+              Bidder: {{ bid.user?.name || bid.user?.username || bid.bidder?.name || bid.bidder?.username || bid.author?.name || 'User ' + (bid.user || bid.bidder || bid.userId || bid._id) }}
+            </strong>
+            <span style="font-size: 0.9em; color: #888;">Submitted on: {{ (bid.createdAt || bid.date) | date:'mediumDate' }}</span>
+          </div>
+          <span style="font-weight: bold; color: #007bff; font-size: 1.2em;">${{ bid.price }}</span>
+        </div>
+        
+        <p style="margin: 10px 0; color: #555; font-style: italic; background: #fdfdfd; padding: 10px; border-left: 3px solid #007bff; border-radius: 4px;">
+          "{{ bid.cover_letter }}"
+        </p>
+
+        <div style="display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-top: 10px;">
+          <span *ngIf="bid.status !== 'pending'" [style.color]="bid.status === 'accepted' ? '#28a745' : '#666'" style="font-weight: bold; text-transform: uppercase;">
+            Status: {{ bid.status }}
+          </span>
+          <button *ngIf="bid.status === 'pending' && job.status === 'open'" 
+                  (click)="acceptBid(bid.id || bid._id)" 
+                  [disabled]="isAccepting"
+                  style="padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+            {{ isAccepting ? 'Processing...' : 'Accept Proposal' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="job-list-container">
+  <h2>Available Jobs</h2>
+  
+  <div *ngIf="isLoading" class="loading">
+    Searching for jobs...
+  </div>
+
+  <div class="search-filters">
+    <input type="text" [(ngModel)]="categoryFilter" placeholder="Category..." />
+    <select [(ngModel)]="statusFilter">
+      <option value="open">Open</option>
+      <option value="in_progress">In Progress</option>
+      <option value="completed">Completed</option>
+      <option value="">All</option>
+    </select>
+    <input type="number" [(ngModel)]="minBudgetFilter" placeholder="Min Budget ($)" />
+    <button (click)="onSearch()">Search</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="jobs.length === 0 && !errorMessage" class="no-jobs">
+    No jobs found matching your criteria.
+  </div>
+
+  <div class="job-cards" *ngIf="jobs.length > 0">
+    <div class="job-card" *ngFor="let job of jobs">
+      <h3>{{ job.title }}</h3>
+      <p class="category">Category: {{ job.category }}</p>
+      <p class="budget">Budget: ${{ job.budget }}</p>
+      <p class="status">Status: 
+        <span [ngClass]="job.status">{{ job.status | titlecase }}</span>
+      </p>
+      <a [routerLink]="['/jobs', job.id]" class="view-details-btn">View Details</a>
+    </div>
+  </div>
+</div>

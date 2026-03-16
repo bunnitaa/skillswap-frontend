@@ -1,0 +1,41 @@
+<div class="my-postings-container">
+  <div class="header">
+    <h2>My Job Postings</h2>
+    <a routerLink="/jobs/create" class="btn create-btn">Create New Job</a>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading your postings...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && myJobs.length === 0 && !errorMessage" class="no-jobs">
+    You haven't posted any jobs yet.
+  </div>
+
+  <div class="jobs-grid" *ngIf="myJobs.length > 0">
+    <div class="job-card" *ngFor="let job of myJobs">
+      <div class="job-header">
+        <h3>{{ job.title }}</h3>
+        <span class="status-badge" [ngClass]="job.status">{{ job.status | titlecase }}</span>
+      </div>
+      
+      <p class="description">{{ job.description | slice:0:100 }}{{ job.description.length > 100 ? '...' : '' }}</p>
+      
+      <div class="job-details">
+        <span><strong>Category:</strong> {{ job.category }}</span>
+        <span><strong>Budget:</strong> ${{ job.budget }}</span>
+      </div>
+
+      <div class="card-actions">
+        <a [routerLink]="['/jobs', job.id]" class="btn view-btn">View</a>
+        
+        <a *ngIf="job.status === 'open'" [routerLink]="['/jobs', job.id, 'edit']" class="btn edit-btn">Edit</a>
+        <button *ngIf="job.status === 'in_progress'" (click)="completeJob(job)" class="btn complete-btn">Complete</button>
+      </div>
+    </div>
+  </div>
+</div>
